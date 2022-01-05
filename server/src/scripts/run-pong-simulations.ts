@@ -24,15 +24,32 @@ function runSimulations() {
       const g = new Game(p1Class, p2Class);
       const scores = g.simulate(1000);
 
-      if (!results[p1Class.NAME]) results[p1Class.NAME] = {};
-      if (!results[p2Class.NAME]) results[p2Class.NAME] = {};
+      if (!results[p1Class.NAME]) results[p1Class.NAME] = { score: 0, matches: {} };
+      if (!results[p2Class.NAME]) results[p2Class.NAME] = { score: 0, matches: {} };
 
-      results[p1Class.NAME][p2Class.NAME] = scores;
-      results[p2Class.NAME][p1Class.NAME] = getSwappedScore(scores);
+      results[p1Class.NAME].matches[p2Class.NAME] = scores;
+      results[p2Class.NAME].matches[p1Class.NAME] = getSwappedScore(scores);
     }
   }
-
   return results;
+}
+
+/**
+ * Calculates a score for each result item which is the average number of wins.
+ * @param results result data to inject scores to.
+ */
+function calcScores(results: Results) {
+  Object.keys(results).forEach((p1Name) => {
+    const p1Data = results[p1Name];
+    const p2Names = Object.keys(p1Data.matches);
+    const scoreSum = p2Names.reduce((score, p2Name) => {
+      const p2Data = p1Data.matches[p2Name];
+      score += p2Data[1];
+      return score;
+    }, 0);
+    const score = scoreSum / p2Names.length;
+    p1Data.score = score;
+  });
 }
 
 function storeResults(results: Results) {
@@ -42,4 +59,5 @@ function storeResults(results: Results) {
   fs.writeFileSync(filePath, JSON.stringify(results));
 }
 const results = runSimulations();
+calcScores(results);
 storeResults(results);
