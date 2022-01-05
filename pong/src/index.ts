@@ -6,7 +6,7 @@ import { ScoreArray } from './types';
 // package exports
 const ais:typeof Bar[] = [
   LowIntelligenceAIBar,
-  // CopyLowInt,
+  CopyLowInt,
   RandomBar
 ];
 
