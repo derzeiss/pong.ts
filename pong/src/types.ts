@@ -8,3 +8,5 @@ export interface IGameObject {
 }
 
 export type BarFactory = (game: Game, x: number, y: number) => Bar;
+
+export type ScoreArray = [draws: number, wins: number, losses: number];

@@ -13,7 +13,7 @@ import {
   Y_CENTER,
 } from './config';
 import { Score } from './Score';
-import { IGameObject } from './types';
+import { IGameObject, ScoreArray } from './types';
 
 export class Game {
   private keys!: { [key: string]: boolean };
@@ -86,11 +86,11 @@ export class Game {
     this.runNextFrame();
   }
 
-  simulate(runs: number, debug = false) {
+  simulate(runs: number, debug = false): ScoreArray {
     const securityTimeout = 36000; // let a game run max 10 mins @ 60FPS
     const halftime = Math.round(runs / 2); // used to switch bar positions on half time
     const t0 = Date.now(); // save current time to determine how long the simulation took
-    let victories = [0, 0, 0]; // draws, p1 wins, p2 wins
+    let victories: ScoreArray = [0, 0, 0]; // draws, p1 wins, p2 wins
 
     // swap victory scores; used in halftime on bar-position-switch and at the end of the simulation
     const swapVictories = () => {
