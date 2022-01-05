@@ -11,7 +11,7 @@ pongRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
     console.log(__dirname);
     await runScript(pathUpdatePackage);
     await runScript(pathRunSimulations);
-    res.send('done');
+    res.sendStatus(204);
   } catch (err) {
     return next(err);
   }
