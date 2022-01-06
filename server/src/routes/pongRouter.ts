@@ -8,13 +8,20 @@ export const pongRouter = Router();
 ///////////////////////////////
 // ROUTES
 
-pongRouter.get('/', async (_req, res) => {
-  res.json(await getResultsAsync());
+pongRouter.get('/', async (_req, res, next) => {
+  getResultsAsync()
+    .then((data) => res.json(data))
+    .catch(next);
 });
 
-pongRouter.post('/', async (_req, res) => {
-  await updatePongSimulationResultsAsync();
-  res.json(await getResultsAsync());
+pongRouter.post('/', async (_req, res, next) => {
+  updatePongSimulationResultsAsync()
+    .then(() => {
+      getResultsAsync()
+        .then((data) => res.json(data))
+        .catch(next);
+    })
+    .catch(next);
 });
 
 ///////////////////////////////
