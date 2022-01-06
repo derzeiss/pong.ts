@@ -40,7 +40,7 @@ app.use((req, _res, next) => {
 });
 
 // send maintenance site if index.html is not available
-app.use((err: HTTPError, req: Request, res: Response, next: NextFunction) => {
+app.use((err: HTTPError, _req: Request, res: Response, next: NextFunction) => {
   const errAny = err as any; // to access fs specific error fields
   if (errAny.errno === -2 && errAny.code === 'ENOENT' && errAny.path.match(/index\.html$/)) {
     return res.sendFile(path.join(__dirname, '../public/maintenance.html'));

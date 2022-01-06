@@ -1,12 +1,18 @@
-import { Bar } from './Bar';
-import { Game } from './Game';
-
 export interface IGameObject {
   handleInput: () => void;
   update: () => void;
   render: (ctx: CanvasRenderingContext2D) => void;
 }
 
-export type BarFactory = (game: Game, x: number, y: number) => Bar;
+// SIMULATION RESULTS
+// ----
+export type SimulationResults = {
+  [barName: string]: {
+    score: number;
+    matches: {
+      [barName: string]: ScoreArray;
+    };
+  };
+};
 
 export type ScoreArray = [draws: number, wins: number, losses: number];

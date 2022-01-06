@@ -1,5 +1,4 @@
-import { Game, ais, ScoreArray } from '@derzeiss/pong';
-import { Results } from '../types';
+import { Game, ais, ScoreArray, SimulationResults } from '@derzeiss/pong';
 import fs from 'fs';
 import path from 'path';
 
@@ -10,7 +9,7 @@ const getSwappedScore: (results: ScoreArray) => ScoreArray = (results) => [
 ];
 
 function runSimulations() {
-  let results: Results = {};
+  let results: SimulationResults = {};
 
   for (let i = 0; i < ais.length; i++) {
     if (i == ais.length - 1) break;
@@ -38,7 +37,7 @@ function runSimulations() {
  * Calculates a score for each result item which is the average number of wins.
  * @param results result data to inject scores to.
  */
-function calcScores(results: Results) {
+function calcScores(results: SimulationResults) {
   Object.keys(results).forEach((p1Name) => {
     const p1Data = results[p1Name];
     const p2Names = Object.keys(p1Data.matches);
@@ -52,7 +51,7 @@ function calcScores(results: Results) {
   });
 }
 
-function storeResults(results: Results) {
+function storeResults(results: SimulationResults) {
   const dirPath = path.join(__dirname, '../../data/');
   const filePath = path.join(dirPath, 'results.json');
   fs.mkdirSync(dirPath, { recursive: true });

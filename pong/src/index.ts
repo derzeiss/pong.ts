@@ -1,16 +1,20 @@
 import { CopyLowInt, LowIntelligenceAIBar, RandomBar } from './AiBar';
 import { Bar } from './Bar';
 import { Game } from './Game';
-import { ScoreArray } from './types';
+import { ScoreArray, SimulationResults } from './types';
 
 // package exports
-const ais:typeof Bar[] = [
-  LowIntelligenceAIBar,
-  CopyLowInt,
-  RandomBar
-];
+const ais: typeof Bar[] = [LowIntelligenceAIBar, CopyLowInt, RandomBar];
 
-export { Game, ais, ScoreArray };
+export {
+  // classes
+  Game,
+  // data
+  ais,
+  // types
+  SimulationResults,
+  ScoreArray,
+};
 
 (() => {
   // start game if we are inside the browser
