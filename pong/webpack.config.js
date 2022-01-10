@@ -15,10 +15,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin({
-      verbose: true,
-      cleanOnceBeforeBuildPatterns: [
-        '../dist_package'
-      ],
       dangerouslyAllowCleanPatternsOutsideProject: true
     }),
     new HtmlWebpackPlugin({
