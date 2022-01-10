@@ -14,7 +14,13 @@ module.exports = {
     path: path.resolve(process.cwd(), 'dist'),
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      verbose: true,
+      cleanOnceBeforeBuildPatterns: [
+        '../dist_package'
+      ],
+      dangerouslyAllowCleanPatternsOutsideProject: true
+    }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),

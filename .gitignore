@@ -3,4 +3,4 @@ dist/
 dist_package/
 data/
 
-.env
+**/.env

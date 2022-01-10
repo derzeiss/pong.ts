@@ -1,14 +1,14 @@
 import { BAR_WIDTH, BAR_HEIGHT, KEYS, BAR_SPEED, HEIGHT } from './config';
 import { Game } from './Game';
 
+const BAR_MAX_Y = HEIGHT - BAR_HEIGHT;
+
 export class Bar {
   public static NAME = 'Bar';
 
   protected game: Game;
   private x: number;
   private y: number;
-  private width: number;
-  private height: number;
   private vx: number;
   private vy: number;
 
@@ -16,8 +16,6 @@ export class Bar {
     this.game = game;
     this.x = x;
     this.y = y;
-    this.width = BAR_WIDTH;
-    this.height = BAR_HEIGHT;
     this.vx = 0;
     this.vy = 0;
   }
@@ -36,14 +34,6 @@ export class Bar {
 
   getVy() {
     return this.vy;
-  }
-
-  getWidth() {
-    return this.width;
-  }
-
-  getHeight() {
-    return this.height;
   }
 
   handleInput() {
@@ -68,13 +58,13 @@ export class Bar {
 
   update() {
     // update position (inside screen boundaries)
-    this.y = Math.min(Math.max(this.y + this.vy, 0), HEIGHT - this.height);
+    this.y = Math.min(Math.max(this.y + this.vy, 0), BAR_MAX_Y);
     // reset velocity for next tick
     this.vx = 0;
     this.vy = 0;
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.rect(this.x, this.y, BAR_WIDTH, BAR_HEIGHT);
   }
 }

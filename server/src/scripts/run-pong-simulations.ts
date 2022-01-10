@@ -2,6 +2,8 @@ import { Game, ais, ScoreArray, SimulationResults } from '@derzeiss/pong';
 import fs from 'fs';
 import path from 'path';
 
+const NO_OF_SIMULATIONS = 1000;
+
 const getSwappedScore: (results: ScoreArray) => ScoreArray = (results) => [
   results[0],
   results[2],
@@ -21,7 +23,7 @@ function runSimulations() {
       console.log('p2', i, j, p2Class.NAME, p2Class.name, typeof p2Class);
 
       const g = new Game(p1Class, p2Class);
-      const scores = g.simulate(1000);
+      const scores = g.simulate(NO_OF_SIMULATIONS);
 
       if (!results[p1Class.NAME]) results[p1Class.NAME] = { score: 0, matches: {} };
       if (!results[p2Class.NAME]) results[p2Class.NAME] = { score: 0, matches: {} };
