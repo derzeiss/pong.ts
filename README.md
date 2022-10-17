@@ -4,12 +4,13 @@ Pong game written in Typescript. You can write your own AIs and let them compete
 
 # Part I: The pong game
 
-All following instructions are related to the pong game and assume you are in `~/pong` when running bash-commands.  
+All following instructions are related to the pong game.  
 For instructions on the dashboard see [Part II: AI competition Dashboard](#part-ii-ai-competition-dashboard).
 
 ## Installation
 
 ```bash
+cd pong
 npm install
 ```
 
@@ -18,6 +19,7 @@ npm install
 If you just want to play a game of pong or implement your pong AI locally, run
 
 ```bash
+cd pong
 npm start
 ```
 
@@ -40,7 +42,7 @@ export class MyAiBar extends Bar {
   public static NAME = 'My AI Bar';
 
   handleInput() {
-    // calc where to move this frame
+    // calc where to move the bar this frame
   }
 }
 ```
@@ -84,13 +86,13 @@ handleInput() {
 
 ### Test / Play against your AI
 
-To test or to play against your AI go into `~/pong/Game.ts` and search for
+To test or to play against your AI go to `~/pong/Game.ts` and search for
 
 ```ts
 const g = new Game(Bar, LowIntelligenceAIBar, 'game-canvas');
 ```
 
-The Game constructor takes two `Bar` classes as parameters. Pass in `Bar` to play yourself or any other Bar-AI class. To play against our newly created AI this line should look like this (Be sure your class is imported in this file):
+The Game constructor takes two `Bar` classes as parameters. Pass in `Bar` to play yourself. To play against our newly created AI this line should look like this (Be sure your class is imported in this file):
 
 ```ts
 const g = new Game(Bar, MyAiBar, 'game-canvas');
@@ -102,11 +104,12 @@ If you want to test your AI against the default AI Bar go with this one
 const g = new Game(MyAiBar, LowIntelligenceAIBar, 'game-canvas');
 ```
 
-After instantiating the game you can either call `simulate(numberOfGames:number) -> [drafts: number, winsP1: number, winsP2: number]` which will simulate the given number of games and return the results or `run()` which will start a new human-playable game.
+After instantiating the game you can either call `simulate(numberOfGames:number) -> [draws: number, winsP1: number, winsP2: number]` which will simulate the given number of games and return the results or `run()` which will start a new human-playable game.
 
 ### Share your AI with your team / show it in the distributed dashboard
 
-Just push your changes to the repo to make it available for your team and to run simulations against them.
+1. Make sure your AI is exported in the `ais` array in `~/pong/index.ts`.
+2. Just push your changes to the repo to make it available for your team and to run simulations against them.
 
 # Part II: AI competition Dashboard
 
@@ -166,5 +169,5 @@ When you click "update results" in the dashboard there are a couple of things th
 
 1. Frontend sends a request to the backend, requesting a result update.
 2. The backend runs `~/server/scripts/update-pong-package`. This script pulls the latest changes from the repo and rebuilds the local pong npm package, so all (new) AIs are included in the package
-3. After finishing the update, `~/server/scripts/run-pong-simulations` is run. This script iterates over all available AIs and runs 1000 game simulations between each of them. The number of simulations between to AIs can be configured in `~/server/scripts/run-pong-simulations -> NO_OF_SIMULATIONS`. The results are saved in a local JSON file on the server in `~/server/data/results.json`.
-4. These results are then returned to the client.
+3. After finishing the update, `~/server/scripts/run-pong-simulations` runs. This script iterates over all available AIs and runs 1000 game simulations between each of them. The number of simulations between to AIs can be configured in `~/server/scripts/run-pong-simulations -> NO_OF_SIMULATIONS`. The results are saved in a local JSON file on the server in `~/server/data/results.json`.
+4. These results are returned to the client and displayed in the dashboard.
