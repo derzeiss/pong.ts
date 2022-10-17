@@ -28,20 +28,21 @@ export class Game {
   private canvas!: HTMLCanvasElement;
   private ctx!: CanvasRenderingContext2D;
 
-  constructor(player1Class: typeof Bar, player2Class: typeof Bar, canvasId: string = '') {
-    if (canvasId) {
-      this.initCanvas(canvasId);
-    }
+  constructor(player1Class: typeof Bar, player2Class: typeof Bar) {
+    this.initCanvas();
 
     // game objects
     this.player1Class = player1Class;
     this.player2Class = player2Class;
   }
 
-  initCanvas(canvasId: string) {
+  initCanvas() {
     // document not defined -> used as module in node.js -> don't init canvas
     if (typeof document === 'undefined') return;
-    this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+
+    this.canvas = document.createElement('canvas');
+    document.body.appendChild(this.canvas);
+
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     this.canvas.width = WIDTH;
     this.canvas.height = HEIGHT;
@@ -87,9 +88,9 @@ export class Game {
   }
 
   simulate(runs: number, debug = false): ScoreArray {
-    const securityTimeout = 36000; // let a game run max 10 mins @ 60FPS
-    const halftime = Math.round(runs / 2); // used to switch bar positions on half time
-    const t0 = Date.now(); // save current time to determine how long the simulation took
+    const securityTimeout = 36000; // let a game run max 10 mins @ 60FPS = 36k frames.
+    const halftime = Math.round(runs / 2); // used to switch bar positions on half time.
+    // const t0 = Date.now(); // save current time to determine how long the simulation took.
     let victories: ScoreArray = [0, 0, 0]; // draws, p1 wins, p2 wins
 
     // swap victory scores; used in halftime on bar-position-switch and at the end of the simulation
