@@ -13,7 +13,6 @@ npm run package
     if (stderr) console.log('STDERR:', stderr);
     if (err) throw new Error(stderr);
 
-    console.log('Successfully updated pong package.');
-    console.log('--------------------------');
+    console.log('Successfully updated pong package. \n--');
   }
 );

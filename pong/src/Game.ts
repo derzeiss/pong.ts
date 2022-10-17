@@ -138,7 +138,7 @@ export class Game {
 
     // we swapped victories in halftime, now we need to swap it back
     swapVictories();
-    console.log(`Simulation took ${Math.round(Date.now() - t0) / 1000}s.`);
+    // console.log(`Simulation took ${Math.round(Date.now() - t0) / 1000}s.`);
     return victories;
   }
 

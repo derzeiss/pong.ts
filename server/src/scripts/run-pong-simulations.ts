@@ -1,4 +1,4 @@
-import { Game, ais, ScoreArray, SimulationResults } from '@derzeiss/pong';
+import { ais, Game, IBar, ScoreArray, SimulationResults } from '@derzeiss/pong';
 import fs from 'fs';
 import path from 'path';
 
@@ -13,14 +13,19 @@ const getSwappedScore: (results: ScoreArray) => ScoreArray = (results) => [
 function runSimulations() {
   let results: SimulationResults = {};
 
+  // print simulation-log header
+  console.log('Running simulation \n--');
+  console.log(['#', 'id #1', 'id #2', 'Bar.NAME', 'Bar.name'].join('\t'));
+  console.log(Array(7).fill('-------').join('\t'));
+
   for (let i = 0; i < ais.length; i++) {
     if (i == ais.length - 1) break;
     const p1Class = ais[i];
-    console.log('p1', i, p1Class.NAME, p1Class.name, typeof p1Class);
+    _logSimulationStep(1, i, '', p1Class);
 
     for (let j = i + 1; j < ais.length; j++) {
       const p2Class = ais[j];
-      console.log('p2', i, j, p2Class.NAME, p2Class.name, typeof p2Class);
+      _logSimulationStep(2, i, j, p2Class);
 
       const g = new Game(p1Class, p2Class);
       const scores = g.simulate(NO_OF_SIMULATIONS);
@@ -31,8 +36,14 @@ function runSimulations() {
       results[p1Class.NAME].matches[p2Class.NAME] = scores;
       results[p2Class.NAME].matches[p1Class.NAME] = getSwappedScore(scores);
     }
+    console.log('');
   }
   return results;
+}
+
+function _logSimulationStep(pId: number, i: number, j: number | string, cls: IBar) {
+  const clsNameGiven = cls.NAME + (cls.NAME.length < 8 ? '\t' : '');
+  console.log([`p${pId}`, i, j, clsNameGiven, cls.name].join('\t'));
 }
 
 /**

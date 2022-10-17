@@ -3,6 +3,8 @@ import { Game } from './Game';
 
 const BAR_MAX_Y = HEIGHT - BAR_HEIGHT;
 
+export type IBar = typeof Bar;
+
 export class Bar {
   public static NAME = 'Bar';
 

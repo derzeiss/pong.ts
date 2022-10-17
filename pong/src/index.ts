@@ -1,10 +1,10 @@
 import { LowIntelligenceAIBar, RandomBar } from './ais/AiBar';
-import { Bar } from './Bar';
+import { Bar, IBar } from './Bar';
 import { Game } from './Game';
 import { ScoreArray, SimulationResults } from './types';
 
 // package exports
-const ais: typeof Bar[] = [LowIntelligenceAIBar, RandomBar];
+const ais: IBar[] = [LowIntelligenceAIBar, RandomBar];
 
 export {
   // classes
@@ -14,10 +14,11 @@ export {
   // types
   SimulationResults,
   ScoreArray,
+  IBar,
 };
 
 (() => {
-  // start game if we are inside the browser
+  // make sure we are in a real browser before starting a game.
   if (typeof document === 'undefined') return;
 
   const g = new Game(Bar, LowIntelligenceAIBar, 'game-canvas');
