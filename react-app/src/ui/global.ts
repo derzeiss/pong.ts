@@ -32,6 +32,6 @@ export const globalStyle = css`
   }
 
   .m-top_sm {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 `;

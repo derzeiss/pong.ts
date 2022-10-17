@@ -12,8 +12,8 @@ npm run package
     if (stdout) console.log('STDOUT:', stdout);
     if (stderr) console.log('STDERR:', stderr);
     if (err) throw new Error(stderr);
-    
-    console.log('Successfully updated pong package.')
+
+    console.log('Successfully updated pong package.');
     console.log('--------------------------');
   }
 );

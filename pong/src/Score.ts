@@ -16,7 +16,7 @@ export class Score {
   update() {}
 
   render(ctx: CanvasRenderingContext2D) {
-      ctx.fillText(this.score.toString(), this.x, this.y);
+    ctx.fillText(this.score.toString(), this.x, this.y);
   }
   getScore() {
     return this.score;

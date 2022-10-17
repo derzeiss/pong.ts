@@ -1,5 +1,14 @@
 import { Bar } from './Bar';
-import { BALL_ACC, BALL_SIZE, BALL_SPEED_X_MIN, BALL_SPEED_Y_MAX, BAR_HEIGHT, BAR_SPEED, BAR_WIDTH, HEIGHT, WIDTH } from './config';
+import {
+  BALL_ACC,
+  BALL_SIZE,
+  BALL_SPEED_X_MIN,
+  BALL_SPEED_Y_MAX,
+  BAR_HEIGHT,
+  BAR_WIDTH,
+  HEIGHT,
+  WIDTH,
+} from './config';
 import { Game } from './Game';
 import { randint } from './util';
 
@@ -71,7 +80,7 @@ export class Ball {
     }
   }
 
-  /** 
+  /**
    * check if ball hit screen bounds left or right -> score
    */
   private handleCollisionsWithPointyWalls() {
